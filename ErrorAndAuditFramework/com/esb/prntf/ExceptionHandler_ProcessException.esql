@@ -1,0 +1,200 @@
+/*************************************************************************************
+ *																					 *
+ * Module name: ExceptionHandler_ProcessException.esql								 *
+ *																					 *
+ * Purpose:   To capture exception details of the flow 							 	 *
+ *            To Store the exception details in the database 						 *	
+ *              and to send email notification										 *
+ *              																	 *																	 
+ * Authors:  PRONTEFF  																 *
+ *               																	 *
+ * Date      JULY 2020		 														 *
+ * 													                				 *
+ * Version:  1.0						    										 *
+ *																					 * 
+ *************************************************************************************/
+
+BROKER SCHEMA com.esb.prntf
+
+DECLARE EmailToAddress EXTERNAL CHARACTER '';
+DECLARE EmailFromAddress EXTERNAL CHARACTER '';
+ 
+CREATE COMPUTE MODULE ExceptionHandler_ProcessException
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CREATE FIELD Environment.Variables;
+		DECLARE refEnv REFERENCE TO Environment.Variables;
+		DECLARE refExceptionlist REFERENCE TO InputExceptionList;		
+		
+		CALL SetLastExceptionInfo(refExceptionlist, refEnv);
+		
+		
+		CREATE FIELD OutputRoot.XMLNSC.ErrorData;
+		DECLARE envErrRef REFERENCE TO OutputRoot.XMLNSC.ErrorData;
+		SET envErrRef.TimeStamp = CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd HH:mm:ss.SSS');
+		SET envErrRef.IntegrationNode 			= BrokerName;		
+		SET envErrRef.IntegrationServer 		= ExecutionGroupLabel;
+		SET envErrRef.MsgFlowName 				= MessageFlowLabel;
+		SET envErrRef.ApplicationName			= ApplicationLabel;
+		SET envErrRef.Status 					= refEnv.LastException.Status.StatusCode;
+		SET envErrRef.ErrorSource 				= refEnv.LastException.Status.Location;
+		SET envErrRef.ExceptionType				= refEnv.LastException.Status.ExType;
+		SET envErrRef.ErrorCode 				= refEnv.LastException.Status.ExNumber;
+		SET envErrRef.ErrorDesc 				= refEnv.LastException.Status.StatusDesc;
+		SET envErrRef.Diagnostics 				= refEnv.LastException.Status.Diagnostics;
+				
+	
+		PROPAGATE TO TERMINAL 'out' DELETE NONE;			
+		
+		DECLARE fileTimeStamp CHARACTER CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyyMMddHHmmss');
+		DECLARE recordRef REFERENCE TO Environment.AuditRecord;
+		SET recordRef.UniqueId = UUIDASCHAR;
+
+		
+		SET envErrRef.UNIQUEID 		 = recordRef.UniqueId;
+		SET envErrRef.REQUEST		 = recordRef.Request;
+		SET envErrRef.RESPONSE 		 = recordRef.Response;
+					
+		SET OutputLocalEnvironment.Destination.File.Name	= 'RequestAndResponseErrorLog'||'_'||fileTimeStamp||'.txt';
+	
+	 	PROPAGATE TO TERMINAL 'out2' DELETE NONE;
+	
+		SET OutputRoot.EmailOutputHeader.To = EmailToAddress;
+		SET OutputRoot.EmailOutputHeader.From = EmailFromAddress;
+		SET OutputRoot.EmailOutputHeader.Subject = 'Error in '||envErrRef.MsgFlowName||' while processing ';
+	
+ 		
+		DECLARE emailBody CHARACTER;
+		SET emailBody = 'Error occured while processing '||envErrRef.MsgFlowName||
+						'<html><body><h4>   </h4>'||
+						'Below are the details:' ||
+						'<h4>TimeStamp :</h4>'||envErrRef.TimeStamp ||
+						'<h4>IntegrationNode :</h4>'||COALESCE(envErrRef.IntegrationNode,'') ||
+						'<h4>IntegrationServer :</h4>'||COALESCE(envErrRef.IntegrationServer,'') ||
+						'<h4>MsgFlowName :</h4>'||COALESCE(envErrRef.MsgFlowName,'') ||
+						'<h4>Status :</h4>'||refEnv.LastException.Status.StatusCode ||
+						'<h4>ErrorCode :</h4>'||COALESCE(refEnv.LastException.Status.ExNumber,'') ||
+						'<h4>Diagnostics :</h4>'||COALESCE(refEnv.LastException.Status.Diagnostics,'') ||
+						'<h4>ErrorDesc :</h4>'||COALESCE(refEnv.LastException.Status.StatusDesc,'') ||'<h4>    </h4></body></html>'||
+						'Please investigate the attached exception log for further information.';
+						
+						
+		DECLARE currdate CHARACTER CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'ddMMMyyHHMMSS');
+		DECLARE AttachmentName CHARACTER 'ExceptionLog'||currdate||'.txt';
+		CREATE FIELD OutputRoot.MIME TYPE Name;
+		DECLARE M REFERENCE TO OutputRoot.MIME;
+		CREATE FIELD M."Content-Type" TYPE NameValue VALUE 'multipart/related; boundary=myBoundary';
+		CREATE FIELD M."Content-ID" TYPE NameValue VALUE 'new MIME document';
+
+		CREATE LASTCHILD OF M TYPE Name NAME 'Parts';
+		CREATE LASTCHILD OF M.Parts TYPE Name NAME 'Part';
+		DECLARE P1 REFERENCE TO M.Parts.Part;
+		CREATE FIELD P1."Content-Type" TYPE NameValue VALUE 'text/html; charset=us-ascii';
+		CREATE FIELD P1."Content-Transfer-Encoding" TYPE NameValue VALUE '8bit';
+		CREATE LASTCHILD OF P1 TYPE Name NAME 'Data';
+		CREATE LASTCHILD OF P1.Data DOMAIN('BLOB') PARSE(CAST(emailBody AS BLOB CCSID 1208));
+		CREATE LASTCHILD OF M.Parts TYPE Name NAME 'Part';
+		DECLARE P2 REFERENCE TO M.Parts.Part[2];
+		CREATE FIELD P2."Content-Type" TYPE NameValue VALUE 'text/plain; charset=us-ascii; name='||AttachmentName;
+		CREATE FIELD P2."Content-Transfer-Encoding" TYPE NameValue VALUE '8bit';
+		CREATE LASTCHILD OF P2 TYPE Name NAME 'Data';
+
+ 		CREATE LASTCHILD OF Environment.Variables.ExcpLst DOMAIN 'XMLNSC' Name 'Exception';
+    	SET Environment.Variables.ExcpLst.Exception = InputExceptionList;
+		
+--		DECLARE BlobIt BLOB ASBITSTREAM(Environment.Variables.ExcpLst.Exception CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+  	 	DECLARE BlobIt BLOB ASBITSTREAM(Environment.Variables.ExcpLst.Exception CCSID 0 ENCODING 546);
+ 		
+ 
+		CREATE LASTCHILD OF P2.Data DOMAIN('BLOB') PARSE(BlobIt);
+		
+		 
+ 		PROPAGATE TO TERMINAL 'out1';			
+		
+		RETURN FALSE;
+	END;
+ 
+	CREATE PROCEDURE SetLastExceptionInfo(IN ExceptionListRef REFERENCE, IN EnvRef REFERENCE)
+	BEGIN
+		
+
+		DECLARE LastExcpRef REFERENCE TO ExceptionListRef.*[1];
+		
+		WHILE ENDSWITH(FieldName(LastExcpRef), 'Exception') AND LastMove(LastExcpRef) DO
+			MOVE LastExcpRef LASTCHILD;
+		END WHILE;
+		MOVE LastExcpRef PARENT;
+
+		DECLARE ExType CHAR COALESCE(FieldName(LastExcpRef), 'Unknown');
+		DECLARE ExNumber CHAR COALESCE(CAST(LastExcpRef.Number AS CHAR), 'Unknown');
+		DECLARE ExText CHAR;
+		 
+		DECLARE lastexception REFERENCE TO EnvRef;
+		CREATE LASTCHILD OF EnvRef AS lastexception NAME 'LastException';
+		DECLARE status REFERENCE TO EnvRef;
+		CREATE LASTCHILD OF lastexception AS status NAME 'Status';
+		DECLARE lastExStatusRef REFERENCE TO status;
+		
+		
+		SET ExText = ExType || ':' || COALESCE(LastExcpRef.Text, 'Unknown');
+		SET lastExStatusRef.Diagnostics = ExText;
+		SET ExText = ExText || ';' || LastExcpRef.Insert[<].Text;
+		
+
+		IF (ExType = 'ParserException') THEN
+			SET lastExStatusRef.StatusCode = 'Input Data Format Error'; 
+		ELSEIF (ExType = 'SocketTimeoutException') THEN
+			SET lastExStatusRef.StatusCode = 'Backend Connectivity Error';  
+		ELSEIF (ExType = 'SocketException') THEN
+			SET lastExStatusRef.StatusCode = 'Connectivity Error';  
+		ELSEIF (ExType = 'FatalException') THEN
+			SET lastExStatusRef.StatusCode = 'APP Connect Internal Error';
+		ELSEIF (ExType = 'RecoverableException') THEN
+			SET lastExStatusRef.StatusCode = 'Invalid data, or failure to write message to an output node';
+		ELSEIF (ExType = 'ConfigurationException') THEN
+			SET lastExStatusRef.StatusCode = 'Configuration request fails';
+		ELSEIF (ExType = 'SecurityException') THEN
+			SET lastExStatusRef.StatusCode = 'Security failure occured during security processing in input node ';
+		ELSEIF (ExType = 'ConversionException') THEN
+			SET lastExStatusRef.StatusCode = 'Invalid data found during conversion functions';
+		ELSEIF (ExType = 'DatabaseException') THEN
+			SET lastExStatusRef.StatusCode = 'Database system reports an error during broker operation';
+		ELSEIF (ExType = 'UserException') THEN
+			SET lastExStatusRef.StatusCode = 'User-defined exception';
+		ELSEIF (ExType = 'CastException') THEN
+			SET lastExStatusRef.StatusCode = 'Exception while conveting the data types';
+		ELSEIF (ExType = 'MessageException') THEN
+			SET lastExStatusRef.StatusCode = 'Message Exception';
+		ELSEIF (ExType = 'SqlException') THEN
+			SET lastExStatusRef.StatusCode = 'SQL Exception';
+		ELSEIF (ExType = 'UnknownException') THEN
+			SET lastExStatusRef.StatusCode = 'Unknown Exception';
+		ELSE
+			SET lastExStatusRef.StatusCode = 'Unknown Exception';
+		END IF;
+
+		SET lastExStatusRef.ExType = ExType;
+		SET lastExStatusRef.StatusDesc = ExText;
+		SET lastExStatusRef.Location = LastExcpRef.Label;
+		SET lastExStatusRef.ExNumber = ExNumber;	
+		DECLARE flowName, flowNameone, label, nodeName CHARACTER;
+		DECLARE fieldPosition,nPos INTEGER;
+		SET nPos = POSITION('.msgflow' IN label);
+		SET flowName = SUBSTRING(label FROM 1 FOR nPos);
+		IF CONTAINS(label, '.') THEN
+			SET label = SUBSTRING( label AFTER '.');
+		END IF;
+		SET fieldPosition = POSITION('.' IN label);
+		SET flowName = SUBSTRING(label BEFORE '.');
+		IF flowName = NULL OR TRIM(flowName) = '' THEN
+			SET flowName = SUBSTRING(flowNameone BEFORE '#');
+		END IF;
+		SET nodeName = SUBSTRING(label FROM (fieldPosition+1));
+		SET lastExStatusRef.ExFlowName = flowName;
+		
+	END;
+END MODULE;
+
+
+

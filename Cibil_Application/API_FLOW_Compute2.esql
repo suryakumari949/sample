@@ -1,0 +1,45 @@
+		DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+		DECLARE tem NAMESPACE 'http://tempuri.org/';	
+
+
+CREATE COMPUTE MODULE API_FLOW_Compute2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+			
+		-- CALL CopyMessageHeaders();
+		 CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		
+		SET Environment.Rdata = InputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.tem:ExecuteXMLString.tem:request;
+		SET Environment.ModifiedChar1 = SUBSTRING(Environment.Rdata BEFORE '<Field key="Applicants">');
+		
+		SET Environment.ModifiedChar2 = SUBSTRING(Environment.Rdata AFTER '<Field key="Applicants">');
+		SET Environment.ModifiedChar3 = SUBSTRING(Environment.ModifiedChar2 BEFORE '</Field>');
+		SET Environment.ReplacedChar1 = REPLACE(REPLACE(Environment.ModifiedChar3,'<','&lt;'), '>', '&gt;');
+		SET Environment.ModifiedChar4 = SUBSTRING(Environment.Rdata AFTER '<Field key="ApplicationData">');
+		SET Environment.ModifiedChar5 = SUBSTRING(Environment.ModifiedChar4 BEFORE '</Field>');
+		SET Environment.ReplacedChar2 = REPLACE(REPLACE(Environment.ModifiedChar5,'<','&lt;'), '>', '&gt;');
+		
+		SET Environment.ModifiedChar6 = SUBSTRING(Environment.Rdata AFTER '<Field key="FinalTraceLevel">');
+		
+		SET Environment.Finalchar1 = Environment.ModifiedChar1||'<Field key="Applicants">'||Environment.ReplacedChar1||'</Field><Field key="ApplicationData">'||Environment.ReplacedChar2||'</Field><Field key="FinalTraceLevel">'||Environment.ModifiedChar6;
+		
+		SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Header = InputRoot.XMLNSC.soapenv:Envelope.soapenv:Header;	
+		SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.tem:ExecuteXMLString.tem:request = Environment.Finalchar1;	
+				
+	END;
+END MODULE;

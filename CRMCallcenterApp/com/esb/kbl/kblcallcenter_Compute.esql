@@ -1,0 +1,25 @@
+BROKER SCHEMA com.esb.kbl
+
+
+CREATE COMPUTE MODULE kblcallcenter_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+				
+		SET Environment.AuditRecord.NodeName  			= BrokerName;
+		SET Environment.AuditRecord.IntegrationServer  	= ExecutionGroupLabel;
+		SET Environment.AuditRecord.FlowName  			= MessageFlowLabel;
+		SET Environment.AuditRecord.ApplicationName  	= ApplicationLabel;		
+		SET Environment.AuditRecord.Request 			= InputRoot.JSON.Data;
+		
+		SET OutputRoot.JSON.Data.CHANNELID 				= InputRoot.JSON.Data.CHANNELID;
+		SET OutputRoot.JSON.Data.SIGN 					= 'eyJhbGciOiJSUzI1NiJ9.eyAiQ0hBTk5FTElEIjogIkNBTENFTiIsICJSRVFVRVNUREFURSI6ICIyMDE3MDkxMTExNTQxMiIsICJSRVFfUkVGX05VTSI6ICJDQUxDRU4wMDAwMDAwMDAwMDAwMDAxIiwgIlVTRVJfSUQiOiAiMTIzNDU2IiwgIlJFUVVFU1RfVFlQRSI6ICJCTE9DSyIsICJNT0JfTlVNQkVSIjogIjk5MTY4Nzc1NDYiLCAiQUNUSU9OIjogIkIiCn0.n-Q0wDjffrSwIOUIEn9HPil0E9YEToOmwwes2bcHIQvpRVrHHCtoyP_-IzUOnVra7iLV276cejV8sWjzCmRsmTxHDtwHfPjS3m9Dp0YoqchFhN-ASrgExQPODJpzZeh0TaPDmMd6cTYCC7HGRZekbSeuWKWpPpMEFL4jtIEoOxXIZut1tkV8dkWSH9bIQEk5P5RhW44NFXIHiLZ0tDEyHPb5fIj5xbUSUcGB2vyPePQjYYmUH6WhqAq1nwvi_sj7tBGD6PJAoqB6hcFCNAACzibNo8Va0HfZt67tSMttnoI0-8nvsZ9Q7A1TDOsAT4G29aqDCAQ2ew4Bwk4l_TPgtQ';
+		SET Environment.Variable.BDATA 					= ASBITSTREAM(InputRoot.JSON.Data.BDATA ENCODING InputRoot.Properties.Encoding CCSID InputRoot.Properties.CodedCharSetId);
+		SET Environment.Variable.BDATA1 				= CAST(Environment.Variable.BDATA AS CHAR CCSID InputRoot.Properties.CodedCharSetId);
+		SET OutputRoot.JSON.Data.BDATA 					= BASE64ENCODE(Environment.Variable.BDATA1);
+		SET Environment.AuditRecord.BackendRequest		= InputRoot.JSON.Data;
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://172.16.223.236:38080/ReachMB/CallCenterAPI';
+		
+	END;
+END MODULE;

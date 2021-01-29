@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" schemaLocation="CIBIL_wsdlfile_InlineSchema8.xsd"/>
+<xs:complexType name="GetQueueAppCountRequestContract">
+<xs:sequence>
+<xs:element minOccurs="0" name="ApplicantFirstName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="ApplicantLastName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="ApplicationId" type="xs:long"/>
+<xs:element minOccurs="0" name="CompleteDate" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CompleteDate_From" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CompleteDate_To" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CreateDate_From" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CreateDate_To" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CurrentQueue" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CurrentStatus" type="xs:int"/>
+<xs:element minOccurs="0" name="CurrentUser" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust01" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust02" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust03" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust04" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust05" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust06" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust07" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust08" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="InquirySource" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="IsLocked" type="xs:int"/>
+<xs:element minOccurs="0" name="OtherCriteria" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Query" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="QueueList" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="SolutionSetId" type="xs:int"/>
+<xs:element minOccurs="0" name="SortOrder" nillable="true" type="xs:anyType"/>
+<xs:element minOccurs="0" name="UTCOffSet" type="xs:int"/>
+<xs:element minOccurs="0" name="UpdatedDate" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="UpdatedDate_From" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="UpdatedDate_To" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="GetQueueAppCountRequestContract" nillable="true" type="tns:GetQueueAppCountRequestContract"/>
+<xs:complexType name="ArrayOfGetQueueAppCountResultContract">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="GetQueueAppCountResultContract" nillable="true" type="tns:GetQueueAppCountResultContract"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfGetQueueAppCountResultContract" nillable="true" type="tns:ArrayOfGetQueueAppCountResultContract"/>
+<xs:complexType name="GetQueueAppCountResultContract">
+<xs:sequence>
+<xs:element minOccurs="0" name="ApplicationCount" type="xs:long"/>
+<xs:element minOccurs="0" name="QueueName" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="GetQueueAppCountResultContract" nillable="true" type="tns:GetQueueAppCountResultContract"/>
+<xs:complexType name="ApplicationDataContract">
+<xs:sequence>
+<xs:element minOccurs="0" name="Fields" nillable="true" type="q1:ArrayOfKeyValueOfstringstring" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ApplicationDataContract" nillable="true" type="tns:ApplicationDataContract"/>
+<xs:complexType name="SearchApplicationRequestContract">
+<xs:sequence>
+<xs:element minOccurs="0" name="ApplicantFirstName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="ApplicantLastName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="ApplicationId" type="xs:long"/>
+<xs:element minOccurs="0" name="CompleteDate" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CompleteDate_From" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CompleteDate_To" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CreateDate_From" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CreateDate_To" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CurrentQueue" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CurrentStatus" type="xs:int"/>
+<xs:element minOccurs="0" name="CurrentUser" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust01" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust02" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust03" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust04" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust05" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust06" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust07" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust08" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="ExternalApplicationId" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="InquirySource" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="IsLocked" type="xs:int"/>
+<xs:element minOccurs="0" name="MaxNoOfRecords" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="OtherCriteria" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="PageDetailsRequired" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="PageNo" type="xs:int"/>
+<xs:element minOccurs="0" name="PageSize" type="xs:int"/>
+<xs:element minOccurs="0" name="Query" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="QueueList" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="SolutionSetId" type="xs:int"/>
+<xs:element minOccurs="0" name="SortField" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="SortOrder" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="TotalCount" type="xs:int"/>
+<xs:element minOccurs="0" name="UTCOffSet" type="xs:int"/>
+<xs:element minOccurs="0" name="UpdatedDate" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="UpdatedDate_From" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="UpdatedDate_To" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="SearchApplicationRequestContract" nillable="true" type="tns:SearchApplicationRequestContract"/>
+<xs:complexType name="SearchApplicationResultContract">
+<xs:sequence>
+<xs:element minOccurs="0" name="PageRangeEnds" type="xs:int"/>
+<xs:element minOccurs="0" name="PageRangeStarts" type="xs:int"/>
+<xs:element minOccurs="0" name="Results" nillable="true" type="tns:ArrayOfSearchApplicationResultDetailContract"/>
+<xs:element minOccurs="0" name="TotalRows" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="SearchApplicationResultContract" nillable="true" type="tns:SearchApplicationResultContract"/>
+<xs:complexType name="ArrayOfSearchApplicationResultDetailContract">
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="SearchApplicationResultDetailContract" nillable="true" type="tns:SearchApplicationResultDetailContract"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="ArrayOfSearchApplicationResultDetailContract" nillable="true" type="tns:ArrayOfSearchApplicationResultDetailContract"/>
+<xs:complexType name="SearchApplicationResultDetailContract">
+<xs:sequence>
+<xs:element minOccurs="0" name="ApplicantFirstName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="ApplicantLastName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="ApplicationId" type="xs:long"/>
+<xs:element minOccurs="0" name="BusinessUnitId" type="xs:long"/>
+<xs:element minOccurs="0" name="Comments" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CompletedDate" nillable="true" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="CompletedUser" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="CreateUser" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CurrentQueue" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="CurrentStatus" type="xs:int"/>
+<xs:element minOccurs="0" name="Cust01" nillable="true" type="xs:long"/>
+<xs:element minOccurs="0" name="Cust02" nillable="true" type="xs:long"/>
+<xs:element minOccurs="0" name="Cust03" nillable="true" type="xs:long"/>
+<xs:element minOccurs="0" name="Cust04" nillable="true" type="xs:long"/>
+<xs:element minOccurs="0" name="Cust05" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust06" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust07" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Cust08" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="Decision" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="DocumentAttachments" type="xs:int"/>
+<xs:element minOccurs="0" name="EnvironmentId" type="xs:int"/>
+<xs:element minOccurs="0" name="EventOrder" type="xs:int"/>
+<xs:element minOccurs="0" name="ExternalApplicationId" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="InquirySource" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="IsLocked" type="xs:boolean"/>
+<xs:element minOccurs="0" name="SiteId" type="xs:int"/>
+<xs:element minOccurs="0" name="SolutionSetId" type="xs:long"/>
+<xs:element minOccurs="0" name="SolutionSetName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="SolutionSetVersion" type="xs:int"/>
+<xs:element minOccurs="0" name="Source" type="xs:int"/>
+<xs:element minOccurs="0" name="UpdatedDate" nillable="true" type="xs:dateTime"/>
+<xs:element minOccurs="0" name="UpdatedUser" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="WorkflowInstanceId" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="SearchApplicationResultDetailContract" nillable="true" type="tns:SearchApplicationResultDetailContract"/>
+</xs:schema>

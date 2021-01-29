@@ -1,0 +1,136 @@
+
+
+CREATE COMPUTE MODULE ConsumerFlow_Compute 
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+		DECLARE tem NAMESPACE 'http://tempuri.org/';
+		DECLARE space1 NAMESPACE 'http://transunion.com/dc/extsvc';	
+		
+		DECLARE enRef REFERENCE TO InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field;
+		DECLARE i INTEGER 1;
+		
+		CREATE LASTCHILD OF Environment DOMAIN('XMLNSC');
+		SET Environment.XMLNSC.space1:DCRequest.(XMLNSC.NamespaceDecl)xmlns = space1;
+		
+        SET Environment.XMLNSC.space1:DCRequest.space1:Authentication.space1:UserId 		        = 'BP0321DC01_UAT002';
+        SET Environment.XMLNSC.space1:DCRequest.space1:Authentication.space1:Password  		      	= 'DcoeKbl#@223';
+        SET Environment.XMLNSC.space1:DCRequest.space1:Authentication.(XMLNSC.Attribute)type 		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Authentication.type;
+
+        SET Environment.XMLNSC.space1:DCRequest.space1:RequestInfo.space1:SolutionSetId		      	= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.RequestInfo.SolutionSetId;
+        SET Environment.XMLNSC.space1:DCRequest.space1:RequestInfo.space1:ExecutionMode		      	= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.RequestInfo.ExecutionMode;
+        SET Environment.XMLNSC.space1:DCRequest.space1:RequestInfo.space1:ExecuteLatestVersion     	= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.RequestInfo.ExecuteLatestVersion;
+       		
+        WHILE LASTMOVE(enRef) DO       
+	
+--	        SET Environment.Variables.Data  								  = REPLACE(InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].text,'<','&lt;');
+--			SET Environment.Variables.Data1  								  = REPLACE(Environment.Variables.Data,'>','&gt;');		
+
+			IF (InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].key = 'Applicants') THEN
+				
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:ApplicantType 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.ApplicantType;
+			    SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:ApplicantFirstName 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.ApplicantFirstName;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:ApplicantMiddleName 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.ApplicantMiddleName;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:ApplicantLastName 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.ApplicantLastName;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:DateOfBirth 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.DateOfBirth;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Gender 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Gender;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:EmailAddress 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.EmailAddress;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:CompanyName 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.CompanyName;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Identifiers.space1:Identifier.space1:IdNumber 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Identifiers.Identifier.IdNumber;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Identifiers.space1:Identifier.space1:IdType 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Identifiers.Identifier.IdType;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Telephones.space1:Telephone.space1:TelephoneExtension		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Telephones.Telephone.TelephoneExtension;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Telephones.space1:Telephone.space1:TelephoneNumber 		  		  	= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Telephones.Telephone.TelephoneNumber;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Telephones.space1:Telephone.space1:TelephoneType 		  		  	= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Telephones.Telephone.TelephoneType;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:AddressLine1 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.AddressLine1;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:AddressLine2 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.AddressLine2;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:AddressLine3 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.AddressLine3;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:AddressLine4 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.AddressLine4;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:AddressLine5 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.AddressLine5;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:AddressType 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.AddressType;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:City 		  		  				= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.City;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:PinCode 		  		  			= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.PinCode;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:ResidenceType 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.ResidenceType;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Addresses.space1:Address.space1:StateCode 		  		  			= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Addresses.Address.StateCode;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:NomineeRelation 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.NomineeRelation;
+			    SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:NomineeName 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.NomineeName;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationType4 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationType4;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationName4 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationName4;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationType3 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationType3;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationName3 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationName3;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationType2 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationType2;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationName2 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationName2;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationType1 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationType1;
+			    SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberRelationName1 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberRelationName1;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:KeyPersonRelation 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.KeyPersonRelation;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:KeyPersonName 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.KeyPersonName;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberOtherId3 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberOtherId3;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberOtherId3Type 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberOtherId3Type;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberOtherId2 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberOtherId2;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberOtherId2Type 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberOtherId2Type;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberOtherId1 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberOtherId1;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:MemberOtherId1Type 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.MemberOtherId1Type;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:Applicants.space1:Applicant.space1:Accounts.space1:Account.space1:AccountNumber 		  		  			= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].Applicants.Applicant.Accounts.Account.AccountNumber;
+			    SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].(XMLNSC.Attribute)key = InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].key;
+			
+				SET Environment.Var.Data = InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i];
+				
+				
+			ELSEIF (InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].key = 'ApplicationData') THEN
+			
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:Purpose 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.Purpose;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:Amount 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.Amount;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:ScoreType 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.ScoreType;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:GSTStateCode 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.GSTStateCode;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:MemberCode 		  		  		= 'BP03211046_UATC2C2';
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:Password 		  		  		= 'ypc0wldz@vgpsVfedgfa';
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:CibilBureauFlag 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.CibilBureauFlag;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:DSTuNtcFlag 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.DSTuNtcFlag;
+			    SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:IDVerificationFlag 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.IDVerificationFlag;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:MFIBureauFlag 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.MFIBureauFlag;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:NTCProductType 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.NTCProductType;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:ConsumerConsentForUIDAIAuthentication 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.ConsumerConsentForUIDAIAuthentication;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:MFIEnquiryAmount 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.MFIEnquiryAmount;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:MFILoanPurpose 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.MFILoanPurpose;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:MFICenterReferenceNo 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.MFICenterReferenceNo;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:MFIBranchReferenceNo 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.MFIBranchReferenceNo;
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:ApplicationData.space1:FormattedReport 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].ApplicationData.FormattedReport;		
+			    SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].(XMLNSC.Attribute)key = InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].key;
+			
+				SET Environment.Var.Data = InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i];	
+				
+			
+				
+			ELSEIF (InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].key = 'FinalTraceLevel')	THEN
+			
+				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i] 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].text; --Environment.Variables.Data1;
+--				SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].space1:key 		  		  		= InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].key; --Environment.Variables.Data1;
+			    SET Environment.XMLNSC.space1:DCRequest.space1:Fields.space1:Field[i].(XMLNSC.Attribute)key = InputRoot.JSON.Data.ExecuteXMLString.request.DCRequest.Fields.Field.Item[i].key;
+				
+				
+			END IF;
+			
+			SET i = i+1;			
+		    MOVE enRef LASTCHILD; 
+		    
+		END WHILE;
+	
+		DECLARE wholeMsgBlob BLOB; 
+		SET wholeMsgBlob = ASBITSTREAM(Environment.XMLNSC,InputRoot.Properties.Encoding,InputRoot.Properties.CodedCharSetId);
+		DECLARE wholeMsgChar CHAR;
+		SET wholeMsgChar = CAST(wholeMsgBlob AS CHAR CCSID InputRoot.Properties.CodedCharSetId);		 
+--		SET Environment.XMLNSC.ExecuteXMLString = REPLACE(wholeMsgChar,'&amp;lt;','&lt;');
+		
+		SET Environment.XMLNSC.tem:ExecuteXMLString.tem:request = wholeMsgChar; --REPLACE(Environment.XMLNSC.ExecuteXMLString,'&amp;gt;','&gt;');
+			
+
+		
+		SET OutputRoot.XMLNSC.soapenv:Envelope.(XMLNSC.NamespaceDecl)xmlns:soapenv = soapenv;		
+		SET OutputRoot.XMLNSC.soapenv:Envelope.(XMLNSC.NamespaceDecl)xmlns:tem = tem;
+--		CREATE FIELD OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Header;
+		SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Header = InputRoot.JSON.Data.Header;	
+		SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.tem:ExecuteXMLString.tem:request = Environment.XMLNSC.tem:ExecuteXMLString.tem:request;	
+		
+
+				
+    END;
+END MODULE;

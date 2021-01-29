@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xs:import namespace="http://schemas.datacontract.org/2004/07/" schemaLocation="CIBIL_wsdlfile_InlineSchema3.xsd"/>
+<xs:import namespace="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices" schemaLocation="CIBIL_wsdlfile_InlineSchema4.xsd"/>
+<xs:import namespace="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution" schemaLocation="CIBIL_wsdlfile_InlineSchema7.xsd"/>
+<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" schemaLocation="CIBIL_wsdlfile_InlineSchema8.xsd"/>
+<xs:import namespace="http://schemas.datacontract.org/2004/07/TU.IDS.BusinessEntities.DigitalVerification" schemaLocation="CIBIL_wsdlfile_InlineSchema9.xsd"/>
+<xs:element ibmSchExtn:docRoot="true" name="AuthenticateXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="AuthenticateXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="AuthenticateXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ChangePasswordXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ChangePasswordXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ChangePasswordXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="DownloadDocument">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="DownloadDocumentResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="DownloadDocumentResult" nillable="true" type="q1:DownloadDocumentResponseContract" xmlns:q1="http://schemas.datacontract.org/2004/07/"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ExecuteXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ExecuteXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ExecuteXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetFinalTrace">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q2:SecureRequest" xmlns:q2="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="applicationId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetFinalTraceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="GetFinalTraceResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetQueueAppCountXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetQueueAppCountXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="GetQueueAppCountXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetAppCountByField">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetAppCountByFieldResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="GetAppCountByFieldResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetQueueAppCount">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q3:SecureRequest" xmlns:q3="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="request" nillable="true" type="q4:GetQueueAppCountRequestContract" xmlns:q4="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetQueueAppCountResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="GetQueueAppCountResult" nillable="true" type="q5:ResponseStatusContract" xmlns:q5="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="result" nillable="true" type="q6:ArrayOfGetQueueAppCountResultContract" xmlns:q6="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetSolutionQueueNames">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q7:SecureRequest" xmlns:q7="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="solutionSetId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetSolutionQueueNamesResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="GetSolutionQueueNamesResult" nillable="true" type="q8:ResponseStatusContract" xmlns:q8="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="queueNames" nillable="true" type="q9:ArrayOfstring" xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="LockApplicationXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="LockApplicationXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="LockApplicationXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="LogoutSessionXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="LogoutSessionXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="LogoutSessionXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationAllFieldsById">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q10:SecureRequest" xmlns:q10="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="applicationId" type="xs:long"/>
+<xs:element minOccurs="0" name="includeNonTrackableFields" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationAllFieldsByIdResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ReadApplicationAllFieldsByIdResult" nillable="true" type="q11:ResponseStatusContract" xmlns:q11="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="response" nillable="true" type="q12:ApplicationDataContract" xmlns:q12="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationDataById">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q13:SecureRequest" xmlns:q13="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="applicationId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationDataByIdResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ReadApplicationDataByIdResult" nillable="true" type="q14:ResponseStatusContract" xmlns:q14="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="response" nillable="true" type="q15:ApplicationDataContract" xmlns:q15="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationDataByIdAndQueue">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q16:SecureRequest" xmlns:q16="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="applicationId" type="xs:long"/>
+<xs:element minOccurs="0" name="queueName" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationDataByIdAndQueueResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ReadApplicationDataByIdAndQueueResult" nillable="true" type="q17:ResponseStatusContract" xmlns:q17="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="response" nillable="true" type="q18:ApplicationDataContract" xmlns:q18="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationFieldsById">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q19:SecureRequest" xmlns:q19="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="applicationId" type="xs:long"/>
+<xs:element minOccurs="0" name="appContextFields" nillable="true" type="q20:ArrayOfstring" xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+<xs:element minOccurs="0" name="includeAllRuntimeExtendedFields" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationFieldsByIdResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ReadApplicationFieldsByIdResult" nillable="true" type="q21:ResponseStatusContract" xmlns:q21="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="response" nillable="true" type="q22:ApplicationDataContract" xmlns:q22="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationFieldsByIdAndQueue">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q23:SecureRequest" xmlns:q23="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="applicationId" type="xs:long"/>
+<xs:element minOccurs="0" name="queueName" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="appContextFields" nillable="true" type="q24:ArrayOfstring" xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+<xs:element minOccurs="0" name="includeAllRuntimeExtendedFields" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReadApplicationFieldsByIdAndQueueResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ReadApplicationFieldsByIdAndQueueResult" nillable="true" type="q25:ResponseStatusContract" xmlns:q25="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="response" nillable="true" type="q26:ApplicationDataContract" xmlns:q26="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReassignApplicationXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReassignApplicationXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ReassignApplicationXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReassignOrganizationXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ReassignOrganizationXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ReassignOrganizationXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RemoveDocument">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RemoveDocumentResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="RemoveDocumentResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ResetPasswordByUserXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ResetPasswordByUserXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ResetPasswordByUserXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveAppsByRangeXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveAppsByRangeXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="RetrieveAppsByRangeXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveDocumentMetaDataXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveDocumentMetaDataXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="RetrieveDocumentMetaDataXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveSecretQuestionXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveSecretQuestionXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="RetrieveSecretQuestionXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveSSXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveSSXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="RetrieveSSXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="RetrieveXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="RetrieveXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="SaveXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="SaveXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="SaveXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="SearchApplication">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="requestAuthToken" nillable="true" type="q27:SecureRequest" xmlns:q27="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="request" nillable="true" type="q28:SearchApplicationRequestContract" xmlns:q28="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="SearchApplicationResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="SearchApplicationResult" nillable="true" type="q29:ResponseStatusContract" xmlns:q29="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="result" nillable="true" type="q30:SearchApplicationResultContract" xmlns:q30="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="SearchApplicationXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="SearchApplicationXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="SearchApplicationXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="UnlockApplicationXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="UnlockApplicationXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="UnlockApplicationXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="UploadDocumentXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="fileBuffer" nillable="true" type="xs:base64Binary"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="UploadDocumentXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="UploadDocumentXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetDvCaseStatusHistory">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="secureRequest" nillable="true" type="q31:SecureRequest" xmlns:q31="http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices"/>
+<xs:element minOccurs="0" name="appId" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="GetDvCaseStatusHistoryResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="GetDvCaseStatusHistoryResult" nillable="true" type="q32:GetCaseStatusHistoryResponse" xmlns:q32="http://schemas.datacontract.org/2004/07/TU.IDS.BusinessEntities.DigitalVerification"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ViewApplicationHistoryXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ViewApplicationHistoryXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ViewApplicationHistoryXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ViewApplicationXMLString">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="request" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element ibmSchExtn:docRoot="true" name="ViewApplicationXMLStringResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="ViewApplicationXMLStringResult" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>

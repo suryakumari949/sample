@@ -1,0 +1,31 @@
+BROKER SCHEMA com.esb.prntf
+
+
+CREATE COMPUTE MODULE ExceptionHandler_CatchError
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+			
+		
+		DECLARE messageNumber CHARACTER;
+		DECLARE messageText   CHARACTER;
+				 
+   	    DECLARE Exceptionlist REFERENCE TO InputExceptionList.*[1];
+   	    
+		WHILE lastmove(Exceptionlist) DO
+			
+			IF Exceptionlist.Number is not null THEN
+        		SET messageNumber   					= Exceptionlist.Number;
+        		SET messageText 						= Exceptionlist.Text;        				
+  			END IF;
+
+			MOVE Exceptionlist lastchild;
+		END WHILE; 
+		
+		CREATE FIELD OutputRoot.JSON.Data.Exception;
+		DECLARE outRef REFERENCE To OutputRoot.JSON.Data.Exception;
+		SET outRef.errorNumber = messageNumber;
+		SET outRef.errorDetails = messageText;
+		
+		
+	END;
+END MODULE;

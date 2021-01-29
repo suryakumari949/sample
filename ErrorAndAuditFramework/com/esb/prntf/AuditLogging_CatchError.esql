@@ -1,0 +1,11 @@
+BROKER SCHEMA com.esb.prntf
+
+
+CREATE COMPUTE MODULE AuditLogging_CatchError
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET OutputRoot.JSON.Data = InputExceptionList;
+	
+	END;
+END MODULE;

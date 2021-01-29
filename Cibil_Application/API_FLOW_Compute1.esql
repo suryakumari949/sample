@@ -1,0 +1,19 @@
+DECLARE ns NAMESPACE 'http://tempuri.org/';
+
+
+CREATE COMPUTE MODULE API_FLOW_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		 SET Environment.Variables.Response = InputRoot.SOAP.Body.ns:ExecuteXMLStringResponse.ns:ExecuteXMLStringResult; 
+		 SET Environment.Variables.Response1 = REPLACE(REPLACE(Environment.Variables.Response,'&lt;','<'), '&gt;', '>');
+		DECLARE BlobReq BLOB;
+		SET BlobReq = CAST(Environment.Variables.Response1 AS BLOB CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CREATE LASTCHILD OF Environment.Variables DOMAIN('XMLNSC') PARSE(BlobReq, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId);	
+				
+		SET OutputRoot.JSON.Data.ExecuteXMLString.response = Environment.Variables.XMLNSC;  
+		
+		RETURN TRUE;
+	END;
+
+END MODULE;

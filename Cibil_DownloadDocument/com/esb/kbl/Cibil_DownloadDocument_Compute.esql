@@ -1,0 +1,34 @@
+BROKER SCHEMA com.esb.kbl
+
+	DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+	DECLARE ns NAMESPACE 'http://tempuri.org/';  
+	DECLARE ns2 NAMESPACE 'http://transunion.com/dc/extsvc';
+
+CREATE COMPUTE MODULE Cibil_DownloadDocument_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		CREATE LASTCHILD OF Environment DOMAIN('XMLNSC');		
+		DECLARE outRef REFERENCE TO Environment.XMLNSC; 
+		DECLARE inRef REFERENCE TO InputRoot.JSON.Data; 
+		SET Environment.XMLNSC.ns2:DCRequest.(XMLNSC.NamespaceDecl)xmlns 				= ns2;
+		SET Environment.XMLNSC.ns2:DCRequest.ns2:Authentication.(XMLNSC.Attribute)type 	= 	inRef.Authentication.type;
+		SET Environment.XMLNSC.ns2:DCRequest.ns2:Authentication.ns2:Password 			= 	'DcoeKbl#@223';
+		SET Environment.XMLNSC.ns2:DCRequest.ns2:Authentication.ns2:UserId 				= 	'BP0321DC01_UAT002';
+	 	SET Environment.XMLNSC.ns2:DCRequest.ns2:DownloadDocument.ns2:ApplicationId  	= 	inRef.DownloadDocument.ApplicationId;
+	 	SET Environment.XMLNSC.ns2:DCRequest.ns2:DownloadDocument.ns2:DocumentId  		= 	inRef.DownloadDocument.DocumentId; 
+		
+		DECLARE myMsgBlob BLOB;
+		DECLARE myMsgChar CHARACTER;
+		SET myMsgBlob = ASBITSTREAM(Environment.XMLNSC,
+		InputRoot.Properties.Encoding,
+		InputRoot.Properties.CodedCharSetId);
+	 	SET myMsgChar = CAST( myMsgBlob AS CHAR CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);		
+		
+		
+		SET  OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.ns:DownloadDocument.(XMLNSC.CDataField)ns:request = myMsgChar;
+		
+		RETURN TRUE;
+		
+	END;
+END MODULE;

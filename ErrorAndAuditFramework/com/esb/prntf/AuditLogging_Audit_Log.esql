@@ -1,0 +1,46 @@
+/*************************************************************************************
+ *																					 *
+ * Module name: AuditLogging_Audit_Log.esql											 *
+ *																					 *
+ * Purpose:   To insert requests, responses into txt file 				  	 		 *
+ *              																	 *																		 
+ * Authors:  PRONTEFF  																 *
+ *               																	 *
+ * Date      Nov 2020		 														 *
+ * 													                				 *
+ * Version:  1.0						    										 *
+ *																					 * 
+ *************************************************************************************/
+
+BROKER SCHEMA com.esb.prntf
+
+
+CREATE COMPUTE MODULE AuditLogging_Audit_Log
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE recordRef REFERENCE TO Environment.AuditRecord;
+		DECLARE time_stamp CHARACTER CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyy-MM-dd HH:mm:ss.SSS');
+		DECLARE fileTimeStamp CHARACTER CAST(CURRENT_TIMESTAMP AS CHARACTER FORMAT 'yyyyMMddHHmmss');
+		SET recordRef.Timestamp = time_stamp;
+		SET recordRef.UniqueId  = UUIDASCHAR;
+		
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.INTEGRATIONNODE  = recordRef.NodeName;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.INTEGRATIONSERVER= recordRef.IntegrationServer;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.MESSAGEFLOW 	 = recordRef.FlowName;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.APPLICATIONNAME  = recordRef.ApplicationName;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.UNIQUEID 		 = recordRef.UniqueId;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.REQUEST			 = recordRef.Request;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.BACKENDREQ		 = recordRef.BackendRequest;		
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.BACKENDRESP		 = recordRef.BackendResponse;		
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.RESPONSE 		 = recordRef.Response;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.TIMESTAMP 		 = recordRef.Timestamp;
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.Message	 		 = 'Received Response Successfully!!';
+		SET OutputRoot.XMLNSC.AuditLogSchema.record.Flag		 	 = 'Y';	
+			
+		SET OutputLocalEnvironment.Destination.File.Name			 = 'ReqAndRespAuditLog'||'_'||fileTimeStamp||'.txt';
+	
+	END;
+
+END MODULE;
+

@@ -1,0 +1,18 @@
+BROKER SCHEMA com.esb.kbl
+
+
+CREATE COMPUTE MODULE kblcallcenter_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET Environment.AuditRecord.BackendResponse = InputRoot.JSON.Data;		
+		SET OutputRoot.JSON.Data.CHANNELID 			= InputRoot.JSON.Data.CHANNELID;
+        SET OutputRoot.JSON.Data.SIGN 				= InputRoot.JSON.Data.SIGN;
+        SET Environment.Variable.BDATA				= BASE64DECODE(InputRoot.JSON.Data.BDATA); 
+        SET OutputRoot.JSON.Data.BDATA 				= CAST(Environment.Variable.BDATA AS CHAR CCSID 1208);
+   		SET Environment.AuditRecord.Response 		= OutputRoot.JSON.Data;		
+        PROPAGATE TO TERMINAL 'out1';		
+		RETURN TRUE;
+	END;
+
+END MODULE;

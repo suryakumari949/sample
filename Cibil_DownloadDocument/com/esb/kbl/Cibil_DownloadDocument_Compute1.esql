@@ -1,0 +1,32 @@
+BROKER SCHEMA com.esb.kbl
+DECLARE ns147 NAMESPACE 'http://www.w3.org/2003/05/soap-envelope';
+DECLARE ns112 NAMESPACE 'http://schemas.datacontract.org/2004/07/';
+
+
+CREATE COMPUTE MODULE Cibil_DownloadDocument_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		IF EXISTS (InputRoot.SOAP.Body.ns:DownloadDocumentResponse.ns:DownloadDocumentResult.ns112:FileContent[]) THEN
+		
+		SET Environment.Variables.FileContent = InputRoot.SOAP.Body.ns:DownloadDocumentResponse.ns:DownloadDocumentResult.ns112:FileContent;
+		SET Environment.Variables.DCResponse = InputRoot.SOAP.Body.ns:DownloadDocumentResponse.ns:DownloadDocumentResult.ns112:Response;  
+		
+		DECLARE BlobReq2 BLOB;
+		SET BlobReq2 = CAST(Environment.Variables.DCResponse AS BLOB CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CREATE LASTCHILD OF Environment.Variables DOMAIN('XMLNSC') PARSE(BlobReq2, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId);	
+				
+		SET OutputRoot.JSON.Data.DownloadDocumentResponse.DownloadDocumentResult.FileContent = BASE64ENCODE(Environment.Variables.FileContent);
+		SET OutputRoot.JSON.Data.DownloadDocumentResponse.DownloadDocumentResult.DCResponse = Environment.Variables.XMLNSC.DCResponse;   
+		
+		ELSE
+		
+		SET OutputRoot.JSON.Data.Response.ErrorCode = 	InputRoot.SOAP.Body.soapenv:Fault.faultcode;	
+		SET OutputRoot.JSON.Data.Response.ERRORMsg 	=	InputRoot.SOAP.Body.soapenv:Fault.faultstring;
+		
+		END IF;
+		
+		RETURN TRUE; 
+		
+	END;
+END MODULE;
