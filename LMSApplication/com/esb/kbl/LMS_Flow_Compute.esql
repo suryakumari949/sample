@@ -1,0 +1,138 @@
+BROKER SCHEMA com.esb.kbl
+
+
+CREATE COMPUTE MODULE LMS_Flow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET Environment.AuditRecord.NodeName  			= BrokerName;
+		SET Environment.AuditRecord.IntegrationServer  	= ExecutionGroupLabel;
+		SET Environment.AuditRecord.FlowName  			= MessageFlowLabel;
+		SET Environment.AuditRecord.ApplicationName  	= ApplicationLabel;
+		SET Environment.AuditRecord.Request				= InputRoot.JSON.Data;
+		
+		CREATE LASTCHILD OF Environment DOMAIN('JSON');
+		
+		SET Environment.JSON.Data.BDATA.CHANNELID 			= InputRoot.JSON.Data.BDATA.CHANNELID;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.REQUESTDATE)  <= 14 THEN
+			
+			SET Environment.JSON.Data.BDATA.REQUESTDATE 				= InputRoot.JSON.Data.BDATA.REQUESTDATE;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'REQUESTDATE'||' '||InputRoot.JSON.Data.BDATA.REQUESTDATE||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.REQREFNUM)  <= 20 THEN
+			
+			SET Environment.JSON.Data.BDATA.REQREFNUM = InputRoot.JSON.Data.BDATA.REQREFNUM;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'REQREFNUM'||' '||InputRoot.JSON.Data.BDATA.REQREFNUM||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.REQTYPE) <= 12 THEN
+			
+			SET Environment.JSON.Data.BDATA.REQTYPE = InputRoot.JSON.Data.BDATA.REQTYPE;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'REQTYPE'||' '||InputRoot.JSON.Data.BDATA.REQTYPE||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.APPLICATION_REFNUM) <= 20 THEN
+			
+			SET Environment.JSON.Data.BDATA.APPLICATION_REFNUM = InputRoot.JSON.Data.BDATA.APPLICATION_REFNUM;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'APPLICATION_REFNUM'||' '||InputRoot.JSON.Data.BDATA.APPLICATION_REFNUM||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.ACTION) <= 1 THEN
+			
+			SET Environment.JSON.Data.BDATA.ACTION = InputRoot.JSON.Data.BDATA.ACTION;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'ACTION'||' '||InputRoot.JSON.Data.BDATA.ACTION||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';
+			RETURN FALSE;
+		END IF;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.BRN_CODE) <= 8 THEN
+			
+			SET Environment.JSON.Data.BDATA.BRN_CODE = InputRoot.JSON.Data.BDATA.BRN_CODE ;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'BRN_CODE'||' '||InputRoot.JSON.Data.BDATA.BRN_CODE ||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.TICKET_SIZE) <= 18 THEN
+			
+			SET Environment.JSON.Data.BDATA.TICKET_SIZE = InputRoot.JSON.Data.BDATA.TICKET_SIZE;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'TICKET_SIZE'||' '||InputRoot.JSON.Data.BDATA.TICKET_SIZE||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.ACTION) <= 1 THEN
+			
+			SET Environment.JSON.Data.BDATA.ACTION = InputRoot.JSON.Data.BDATA.ACTION;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'ACTION'||' '||InputRoot.JSON.Data.BDATA.ACTION||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;		
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.PRODUCT) <= 50 THEN
+			
+			SET Environment.JSON.Data.BDATA.PRODUCT = InputRoot.JSON.Data.BDATA.PRODUCT;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'PRODUCT'||' '||InputRoot.JSON.Data.BDATA.PRODUCT||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;	
+
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.APPLICANT_NAME) <= 150 THEN
+			
+			SET Environment.JSON.Data.BDATA.APPLICANT_NAME = InputRoot.JSON.Data.BDATA.APPLICANT_NAME;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'APPLICANT_NAME'||' '||InputRoot.JSON.Data.BDATA.APPLICANT_NAME||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;	
+				
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.DROP_REASON) <= 3 THEN
+			
+			SET Environment.JSON.Data.BDATA.DROP_REASON = InputRoot.JSON.Data.BDATA.DROP_REASON;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'DROP_REASON'||' '||InputRoot.JSON.Data.BDATA.DROP_REASON||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;	
+		
+		IF  LENGTH(InputRoot.JSON.Data.BDATA.REMARKS) <= 100 THEN
+			
+			SET Environment.JSON.Data.BDATA.REMARKS = InputRoot.JSON.Data.BDATA.REMARKS;
+		ELSE
+			SET OutputRoot.JSON.Data.BDATA.ValidationResp = 'REMARKS'||' '||InputRoot.JSON.Data.BDATA.REMARKS||' '||'Not valid Length';
+			PROPAGATE TO TERMINAL 'out1';		
+			RETURN FALSE;
+		END IF;	
+		
+		
+		SET OutputRoot.JSON.Data.CHANNELID 				= InputRoot.JSON.Data.CHANNELID;
+		SET OutputRoot.JSON.Data.SIGN 					= InputRoot.JSON.Data.SIGN;
+		SET Environment.Variable.BlobD					= ASBITSTREAM(Environment.JSON.Data.BDATA ENCODING InputRoot.Properties.Encoding CCSID InputRoot.Properties.CodedCharSetId);
+		SET Environment.Variable.CData	 				= CAST(Environment.Variable.BlobD AS CHAR CCSID InputRoot.Properties.CodedCharSetId);
+		SET OutputRoot.JSON.Data.BDATA					= BASE64ENCODE(Environment.Variable.CData);
+		SET Environment.AuditRecord.BackendRequest		= OutputRoot.JSON.Data;
+		
+		SET OutputLocalEnvironment.Destination.HTTP.RequestURL = 'http://172.16.223.236:31080/ReachWeb/LmsAPI';
+		
+		RETURN TRUE;
+	END;
+END MODULE;

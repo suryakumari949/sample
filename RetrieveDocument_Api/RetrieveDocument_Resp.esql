@@ -1,0 +1,26 @@
+
+
+CREATE COMPUTE MODULE RetrieveDocument_Resp 
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		IF EXISTS (InputRoot.SOAP.Body.ns:RetrieveDocumentMetaDataXMLStringResponse.ns:RetrieveDocumentMetaDataXMLStringResult[]) THEN
+		
+		SET Environment.Variables.Response = InputRoot.SOAP.Body.ns:RetrieveDocumentMetaDataXMLStringResponse.ns:RetrieveDocumentMetaDataXMLStringResult;  
+		DECLARE BlobReq BLOB;
+		SET BlobReq = CAST(Environment.Variables.Response AS BLOB CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CREATE LASTCHILD OF Environment.Variables DOMAIN('XMLNSC') PARSE(BlobReq, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId);	
+				
+		SET OutputRoot.JSON.Data.RetrieveDocumentMetaData.DCResponse = Environment.Variables.XMLNSC.DCResponse; 
+		
+		ELSE
+		
+		SET OutputRoot.JSON.Data.Response.ErrorCode = 	InputRoot.SOAP.Body.soapenv:Fault.faultcode;	
+		SET OutputRoot.JSON.Data.Response.ERRORMsg 	=	InputRoot.SOAP.Body.soapenv:Fault.faultstring;
+		
+		END IF;
+		
+		RETURN TRUE; 
+		 
+	END;
+END MODULE;

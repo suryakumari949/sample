@@ -1,0 +1,152 @@
+
+
+Importing file: C:\Users\sai teja\Downloads\CIBIL wsdlfile.wsdl
+
+
+The following is a list of WS-I warning messages found when importing:
+XSD: There is no xmlns declaration for namespace 'http://schemas.datacontract.org/2004/07/', Line: 4, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices', Line: 5, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.datacontract.org/2004/07/TU.IDS.DataContracts.ExternalServices.SolutionExecution', Line: 6, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.microsoft.com/2003/10/Serialization/Arrays', Line: 7, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.datacontract.org/2004/07/TU.IDS.BusinessEntities.DigitalVerification', Line: 8, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.microsoft.com/2003/10/Serialization/Arrays', Line: 549, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.datacontract.org/2004/07/TU.IDS.ServiceShared.Utility', Line: 570, Column: 1
+XSD: The location '' has not been resolved because the import is unused, Line: 580, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.microsoft.com/2003/10/Serialization/', Line: 580, Column: 1
+XSD: There is no xmlns declaration for namespace 'http://schemas.microsoft.com/2003/10/Serialization/Arrays', Line: 602, Column: 1
+
+
+The WSDL import will proceed with bindings basicHttp.
+Creating wsdl schema document for file:///C:/Users/sai teja/Downloads/CIBIL wsdlfile.wsdl.
+Parsing wsdl binding {http://tempuri.org/}basicHttp.
+Parsing wsdl binding input AuthenticateXMLString.
+Parsing wsdl binding output AuthenticateXMLString.
+Parsing wsdl binding input ChangePasswordXMLString.
+Parsing wsdl binding output ChangePasswordXMLString.
+Parsing wsdl binding input DownloadDocument.
+Parsing wsdl binding output DownloadDocument.
+Parsing wsdl binding input ExecuteXMLString.
+Parsing wsdl binding output ExecuteXMLString.
+Parsing wsdl binding input GetFinalTrace.
+Parsing wsdl binding output GetFinalTrace.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input GetQueueAppCountXMLString.
+Parsing wsdl binding output GetQueueAppCountXMLString.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input GetAppCountByField.
+Parsing wsdl binding output GetAppCountByField.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input GetQueueAppCount.
+Parsing wsdl binding output GetQueueAppCount.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input GetSolutionQueueNames.
+Parsing wsdl binding output GetSolutionQueueNames.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input LockApplicationXMLString.
+Parsing wsdl binding output LockApplicationXMLString.
+Parsing wsdl binding input LogoutSessionXMLString.
+Parsing wsdl binding output LogoutSessionXMLString.
+Parsing wsdl binding input ReadApplicationAllFieldsById.
+Parsing wsdl binding output ReadApplicationAllFieldsById.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input ReadApplicationDataById.
+Parsing wsdl binding output ReadApplicationDataById.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input ReadApplicationDataByIdAndQueue.
+Parsing wsdl binding output ReadApplicationDataByIdAndQueue.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input ReadApplicationFieldsById.
+Parsing wsdl binding output ReadApplicationFieldsById.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input ReadApplicationFieldsByIdAndQueue.
+Parsing wsdl binding output ReadApplicationFieldsByIdAndQueue.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input ReassignApplicationXMLString.
+Parsing wsdl binding output ReassignApplicationXMLString.
+Parsing wsdl binding input ReassignOrganizationXMLString.
+Parsing wsdl binding output ReassignOrganizationXMLString.
+Parsing wsdl binding input RemoveDocument.
+Parsing wsdl binding output RemoveDocument.
+Parsing wsdl binding input ResetPasswordByUserXMLString.
+Parsing wsdl binding output ResetPasswordByUserXMLString.
+Parsing wsdl binding input RetrieveAppsByRangeXMLString.
+Parsing wsdl binding output RetrieveAppsByRangeXMLString.
+Parsing wsdl binding input RetrieveDocumentMetaDataXMLString.
+Parsing wsdl binding output RetrieveDocumentMetaDataXMLString.
+Parsing wsdl binding input RetrieveSecretQuestionXMLString.
+Parsing wsdl binding output RetrieveSecretQuestionXMLString.
+Parsing wsdl binding input RetrieveSSXMLString.
+Parsing wsdl binding output RetrieveSSXMLString.
+Parsing wsdl binding input RetrieveXMLString.
+Parsing wsdl binding output RetrieveXMLString.
+Parsing wsdl binding input SaveXMLString.
+Parsing wsdl binding output SaveXMLString.
+Parsing wsdl binding input SearchApplication.
+Parsing wsdl binding output SearchApplication.
+Parsing wsdl binding fault ExternalServiceFaultFault.
+Parsing wsdl binding input SearchApplicationXMLString.
+Parsing wsdl binding output SearchApplicationXMLString.
+Parsing wsdl binding input UnlockApplicationXMLString.
+Parsing wsdl binding output UnlockApplicationXMLString.
+Parsing wsdl binding input UploadDocumentXMLString.
+Parsing wsdl binding output UploadDocumentXMLString.
+Parsing wsdl binding input GetDvCaseStatusHistory.
+Parsing wsdl binding output GetDvCaseStatusHistory.
+Parsing wsdl binding input ViewApplicationHistoryXMLString.
+Parsing wsdl binding output ViewApplicationHistoryXMLString.
+Parsing wsdl binding input ViewApplicationXMLString.
+Parsing wsdl binding output ViewApplicationXMLString.
+Processing doc style for operation AuthenticateXMLString.
+Processing doc style for operation ChangePasswordXMLString.
+Processing doc style for operation DownloadDocument.
+Processing doc style for operation ExecuteXMLString.
+Processing doc style for operation GetFinalTrace.
+Processing doc style for operation GetQueueAppCountXMLString.
+Processing doc style for operation GetAppCountByField.
+Processing doc style for operation GetQueueAppCount.
+Processing doc style for operation GetSolutionQueueNames.
+Processing doc style for operation LockApplicationXMLString.
+Processing doc style for operation LogoutSessionXMLString.
+Processing doc style for operation ReadApplicationAllFieldsById.
+Processing doc style for operation ReadApplicationDataById.
+Processing doc style for operation ReadApplicationDataByIdAndQueue.
+Processing doc style for operation ReadApplicationFieldsById.
+Processing doc style for operation ReadApplicationFieldsByIdAndQueue.
+Processing doc style for operation ReassignApplicationXMLString.
+Processing doc style for operation ReassignOrganizationXMLString.
+Processing doc style for operation RemoveDocument.
+Processing doc style for operation ResetPasswordByUserXMLString.
+Processing doc style for operation RetrieveAppsByRangeXMLString.
+Processing doc style for operation RetrieveDocumentMetaDataXMLString.
+Processing doc style for operation RetrieveSecretQuestionXMLString.
+Processing doc style for operation RetrieveSSXMLString.
+Processing doc style for operation RetrieveXMLString.
+Processing doc style for operation SaveXMLString.
+Processing doc style for operation SearchApplication.
+Processing doc style for operation SearchApplicationXMLString.
+Processing doc style for operation UnlockApplicationXMLString.
+Processing doc style for operation UploadDocumentXMLString.
+Processing doc style for operation GetDvCaseStatusHistory.
+Processing doc style for operation ViewApplicationHistoryXMLString.
+Processing doc style for operation ViewApplicationXMLString.
+Populating WSDL schema CIBIL wsdlfile.xsd.
+Removing unnecessary import statement with namespace http://schemas.microsoft.com/2003/10/Serialization/ from schema /CIBIL_Api/CIBIL_wsdlfile_InlineSchema6.xsd.  This statement was not resolved and is never used.
+Creating file CIBIL wsdlfile.xsd in the workspace.
+Creating file CIBIL_wsdlfile_InlineSchema1.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema2.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema3.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema4.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema5.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema6.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema7.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema8.xsd in the workspace.
+Creating file /CIBIL_Api/CIBIL_wsdlfile_InlineSchema9.xsd in the workspace.
+Copying source WSDL CIBIL wsdlfile.wsdl to CIBIL wsdlfile.wsdl.
+
+Elapsed time processing this message definition file: 6.066 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

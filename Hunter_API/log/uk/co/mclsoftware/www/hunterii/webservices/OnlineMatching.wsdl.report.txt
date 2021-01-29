@@ -1,0 +1,22 @@
+
+
+Importing file: C:\Users\USER\IBM\ACET11\workspace2\Hunter_API\OnlineMatching.wsdl
+
+The WSDL import will proceed with bindings MatchingSoap.
+Creating wsdl schema document for file:///C:/Users/USER/IBM/ACET11/workspace2/Hunter_API/OnlineMatching.wsdl.
+Parsing wsdl binding {http://www.mclsoftware.co.uk/HunterII/WebServices}MatchingSoap.
+Parsing wsdl binding input Match.
+Parsing wsdl binding output Match.
+Processing doc style for operation Match.
+Populating WSDL schema OnlineMatching.xsd.
+Creating file OnlineMatching.xsd in the workspace.
+Creating file OnlineMatching_InlineSchema1.xsd in the workspace.
+Copying source WSDL OnlineMatching.wsdl to OnlineMatching.wsdl.
+
+Elapsed time processing this message definition file: 0.372 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

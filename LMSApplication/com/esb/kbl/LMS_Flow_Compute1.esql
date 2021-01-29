@@ -1,0 +1,23 @@
+BROKER SCHEMA com.esb.kbl
+
+
+CREATE COMPUTE MODULE LMS_Flow_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE BSL CHARACTER;
+		SET BSL = CAST(X'5C' AS CHAR CCSID InputRoot.Properties.CodedCharSetId);
+		SET Environment.AuditRecord.BackendResponse = InputRoot.JSON.Data;	
+				
+		SET OutputRoot.JSON.Data.SIGN 					= InputRoot.JSON.Data.SIGN;
+		SET Environment.Variable						= BASE64DECODE(InputRoot.JSON.Data.BDATA);
+		SET OutputRoot.JSON.Data.BDATA	 				= REPLACE(CAST(Environment.Variable AS CHAR CCSID InputRoot.Properties.CodedCharSetId),BSL, '');
+		SET OutputRoot.JSON.Data.CHANNELID 				= InputRoot.JSON.Data.CHANNELID;
+
+		SET Environment.AuditRecord.Response			= OutputRoot.JSON.Data;
+
+		PROPAGATE TO TERMINAL 'out1';		
+		RETURN TRUE;
+	END;
+
+END MODULE;

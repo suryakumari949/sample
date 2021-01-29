@@ -1,0 +1,27 @@
+BROKER SCHEMA com.esb.kbl
+
+
+CREATE COMPUTE MODULE Hunter_API_ConstructResponse
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		
+	
+		IF EXISTS (InputRoot.SOAP.Body.*:MatchResponse[]) THEN
+			
+		SET Environment.Variables.Response = InputRoot.SOAP.Body.*:MatchResponse.*:MatchResult; 
+		SET Environment.Variables.Response1 = CAST(Environment.Variables.Response AS BLOB CCSID InputRoot.Properties.CodedCharSetId ENCODING InputRoot.Properties.Encoding);
+		CREATE LASTCHILD OF Environment.Variables DOMAIN('XMLNSC') PARSE(Environment.Variables.Response1, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId);
+		SET OutputRoot.JSON.Data.MatchResult = Environment.Variables.XMLNSC.ResultBlock;
+				
+		
+		ELSE
+		
+		SET OutputRoot.JSON.Data.Response.ErrorCode = 	InputRoot.SOAP.Body.soapenv:Fault.faultcode;	
+		SET OutputRoot.JSON.Data.Response.ERRORMsg 	=	InputRoot.SOAP.Body.soapenv:Fault.faultstring;
+		
+		END IF;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

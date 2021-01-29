@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://www.mclsoftware.co.uk/HunterII/WebServices" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:tns="http://www.mclsoftware.co.uk/HunterII/WebServices">
+  <wsdl:documentation>
+    <wsdl:appinfo source="WMQI_APPINFO">
+      <MRWSDLAppInfo imported="true">
+        <generatedXSD location="OnlineMatching_InlineSchema1.xsd"/>
+        <binding hasEncoding="false" imported="false" name="MatchingSoap12" originalBindingStyle="document"/>
+        <binding hasEncoding="false" imported="true" name="MatchingSoap" originalBindingStyle="document"/>
+      </MRWSDLAppInfo>
+    </wsdl:appinfo>
+  </wsdl:documentation>
+  <wsdl:types>
+    
+          <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mclsoftware.co.uk/HunterII/WebServices" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions">
+<xsd:include schemaLocation="OnlineMatching_InlineSchema1.xsd"/>
+    </xsd:schema>
+    </wsdl:types>
+  <wsdl:message name="MatchSoapIn">
+    <wsdl:part element="tns:Match" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="MatchSoapOut">
+    <wsdl:part element="tns:MatchResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="MatchingSoap">
+    <wsdl:operation name="Match">
+      <wsdl:input message="tns:MatchSoapIn"/>
+      <wsdl:output message="tns:MatchSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MatchingSoap" type="tns:MatchingSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Match">
+      <soap:operation soapAction="http://www.mclsoftware.co.uk/HunterII/WebServices/Match" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MatchingSoap12" type="tns:MatchingSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Match">
+      <soap12:operation soapAction="http://www.mclsoftware.co.uk/HunterII/WebServices/Match" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Matching">
+    <wsdl:port binding="tns:MatchingSoap" name="MatchingSoap">
+      <soap:address location="https://wsrvhunteruat.experian.in/OnlineMatching/OnlineMatching.asmx"/>
+    </wsdl:port>
+    <wsdl:port binding="tns:MatchingSoap12" name="MatchingSoap12">
+      <soap12:address location="http://wsrvhunteruat.experian.in:16451/OnlineMatching/OnlineMatching.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

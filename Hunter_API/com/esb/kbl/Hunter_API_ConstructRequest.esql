@@ -1,0 +1,90 @@
+BROKER SCHEMA com.esb.kbl
+
+DECLARE web NAMESPACE 'http://www.mclsoftware.co.uk/HunterII/WebServices';
+DECLARE soapenv NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+DECLARE ns NAMESPACE 'http://www.w3.org/2003/05/soap-envelope';
+DECLARE fins NAMESPACE 'urn:mclsoftware.co.uk:hunterII';
+DECLARE TEM NAMESPACE 'http://www.w3.org/2001/XMLSchema-instance';
+
+
+
+CREATE COMPUTE MODULE Hunter_API_ConstructRequest
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+--		DECLARE i INTEGER 1;
+--		DECLARE enRef REFERENCE TO InputRoot.JSON.Data.controlXml.ControlBlock.Matching.MatchSchemeSet.SchemeSetID;
+			
+			CREATE FIRSTCHILD OF Environment.Variables.Data1 DOMAIN('XMLNSC');
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.(XMLNSC.NamespaceDecl)xmlns 									= fins;
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.(XMLNSC.NamespaceDecl)xmlns:xsi 								= TEM;
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Customer.fins:CustomerID									= '134';
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Customer.fins:CustomerName								= 'KRNTK';
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Loading.fins:SubmissionLoad								= '1';
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Loading.fins:SuppressVersion.(XMLNSC.Attribute)flag		= '0';
+		
+--		WHILE LASTMOVE(enRef) DO 
+		
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Matching.fins:MatchSchemeSet.fins:SchemeSetID[1]			= '21';
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Matching.fins:MatchSchemeSet.fins:SchemeSetID[2]			= '1211';
+		
+--		SET i = i+1;			
+--		MOVE enRef LASTCHILD;     
+--		
+--		END WHILE;
+		
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Matching.fins:PersistMatches								= '1';
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Matching.fins:WorklistInsert								= '1';
+			SET Environment.Variables.Data1.XMLNSC.fins:ControlBlock.fins:Results.fins:RsltCode										= '1';
+			SET Environment.Var.Data1  																								= ASBITSTREAM(Environment.Variables.Data1.XMLNSC.fins:ControlBlock, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId,'','','',FolderBitStream);
+			SET Environment.Variables.INData1 																						= CAST(Environment.Var.Data1 AS CHAR CCSID InputRoot.Properties.CodedCharSetId);
+			
+			
+			CREATE FIRSTCHILD OF Environment.Variables.Data DOMAIN('XMLNSC');
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.(XMLNSC.NamespaceDecl)xmlns 											= fins;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:HEADER.fins:COUNT													= InputRoot.JSON.Data.batchXml.BATCH.HEADER.COUNT;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:HEADER.fins:ORIGINATOR											= InputRoot.JSON.Data.batchXml.BATCH.HEADER.ORIGINATOR;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:PRODUCT							= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.PRODUCT;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:DATE								= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.DATE;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:CLASSIFICATION					= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.CLASSIFICATION;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:IDENTIFIER						= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.IDENTIFIER;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:APP_DTE							= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.APP_DTE;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:LN_PRP							= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.LN_PRP;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:PAN						= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.PAN;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:FST_NME					= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.FST_NME;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:LST_NME					= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.LST_NME;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:DOB						= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.DOB;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:GNDR						= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.GNDR;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MAR_STT					= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MAR_STT;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_CA.fins:ADD			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_CA.ADD;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_CA.fins:CTY			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_CA.CTY;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_CA.fins:STE			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_CA.STE;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_CA.fins:CTRY			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_CA.CTRY;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_CA.fins:PIN			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_CA.PIN;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_PMA.fins:ADD			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_PMA.ADD;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_PMA.fins:CTY			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_PMA.CTY;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_PMA.fins:STE			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_PMA.STE;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_PMA.fins:CTRY			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_PMA.CTRY;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_PMA.fins:PIN			= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_PMA.PIN;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_HT.fins:TEL_NO		= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_HT.TEL_NO;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_MT.fins:TEL_NO		= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_MT.TEL_NO;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_BT.fins:TEL_NO		= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_BT.TEL_NO;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_EMA.fins:EMA_ADD		= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_EMA.EMA_ADD;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_ID.fins:DOC_TYP		= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_ID.DOC_TYP;
+			SET Environment.Variables.Data.XMLNSC.fins:BATCH.fins:SUBMISSIONS.fins:SUBMISSION.fins:MA.fins:MA_ID.fins:DOC_NO		= InputRoot.JSON.Data.batchXml.BATCH.SUBMISSIONS.SUBMISSION.MA.MA_ID.DOC_NO;
+			SET Environment.Var.Data  																								= ASBITSTREAM(Environment.Variables.Data.XMLNSC.fins:BATCH, InputRoot.Properties.Encoding, InputRoot.Properties.CodedCharSetId,'','','',FolderBitStream);
+			SET Environment.Variables.INData 																						= CAST(Environment.Var.Data AS CHAR CCSID InputRoot.Properties.CodedCharSetId);
+			
+			
+			SET OutputRoot.XMLNSC.soapenv:Envelope.(XMLNSC.NamespaceDecl)xmlns:soapenv 												= soapenv;
+			SET OutputRoot.XMLNSC.soapenv:Envelope.(XMLNSC.NamespaceDecl)xmlns:web 													= web;
+			SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Header																	= InputRoot.JSON.Data.Header;
+			SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.web:Match.(XMLNSC.CDataField)web:controlXml							= Environment.Variables.INData1;
+			SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.web:Match.(XMLNSC.CDataField)web:batchXml							= Environment.Variables.INData;
+			SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.web:Match.web:username 												= 'KRNTK_SERVICES';
+			SET OutputRoot.XMLNSC.soapenv:Envelope.soapenv:Body.web:Match.web:password 												= 'Bullet#321';
+		
+		RETURN TRUE;
+	END;
+END MODULE;
+

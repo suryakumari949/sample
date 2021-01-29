@@ -1,0 +1,41 @@
+BROKER SCHEMA com.esb.kbl
+
+
+CREATE COMPUTE MODULE TransactionAPIFlow_ResponseStore
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+	
+		SET Environment.AuditRecord.BackendResponse			  = InputRoot.XMLNSC;	
+		
+		DECLARE finNs NAMESPACE 'http://www.finacle.com/fixml';
+		DECLARE schemaLocation NAMESPACE 'http://www.finacle.com/fixml XferTrnAdd.xsd';
+		DECLARE xsi NAMESPACE 'www.w3.org/2001/XMLSchema-instance';
+		
+		SET OutputRoot.XMLNSC.finNs:FIXML.(XMLNSC.NamespaceDecl)xsi:schemaLocation = schemaLocation;		
+		SET OutputRoot.XMLNSC.finNs:FIXML.(XMLNSC.NamespaceDecl)xmlns = finNs;
+		SET OutputRoot.XMLNSC.finNs:FIXML.(XMLNSC.NamespaceDecl)xmlns:xsi = xsi;
+		
+		IF Environment.UserName = 'Asba' THEN
+			
+			SET OutputRoot.XMLNSC.finNs:FIXML.finNs:Header 				   = InputRoot.XMLNSC.finNs:FIXML.finNs:Header;
+			SET OutputRoot.XMLNSC.finNs:FIXML.finNs:Body.finNs:XferTrnAddResponse.finNs:XferTrnAddRs.finNs:TrnIdentifier.finNs:TrnDt      = InputRoot.XMLNSC.finNs:FIXML.finNs:Body.finNs:XferTrnAddResponse.finNs:XferTrnAddRs.finNs:TrnIdentifier.finNs:TrnDt;
+			
+		ELSEIF Environment.UserName = 'Fms' THEN
+			SET OutputRoot.XMLNSC.finNs:FIXML.finNs:Header 					   = InputRoot.XMLNSC.finNs:FIXML.finNs:Header;		
+			SET OutputRoot.XMLNSC.finNs:FIXML.finNs:Body.finNs:XferTrnAddResponse.finNs:XferTrnAddRs.finNs:TrnIdentifier.finNs:TrnId	  = InputRoot.XMLNSC.finNs:FIXML.finNs:Body.finNs:XferTrnAddResponse.finNs:XferTrnAddRs.finNs:TrnIdentifier.finNs:TrnId;
+		
+		ELSEIF Environment.UserName = 'Naftmw' THEN
+			SET OutputRoot.XMLNSC.finNs:FIXML.finNs:Header = InputRoot.XMLNSC.finNs:FIXML.finNs:Header;		
+			SET OutputRoot.XMLNSC.finNs:FIXML.finNs:Body = InputRoot.XMLNSC.finNs:FIXML.finNs:Body;
+			
+		ELSE
+			SET OutputRoot.XMLNSC.finNs:FIXML.finNs:Body.finNs:MessageInfo 	= 'The Request userName is not found';
+		
+		END IF;
+
+		SET Environment.AuditRecord.Response			= OutputRoot.XMLNSC;	
+		PROPAGATE TO TERMINAL 'out1';
+		RETURN TRUE;
+	END;
+
+END MODULE;

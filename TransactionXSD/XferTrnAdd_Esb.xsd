@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.finacle.com/fixml" xmlns:Tr="http://www.finacle.com/fixml" elementFormDefault="qualified">
+	<xsd:element name="FIXML">
+		<xsd:annotation></xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Header" minOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="RequestHeader">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element
+											name="MessageKey">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element
+														name="RequestUUID" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="ServiceRequestId" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="ServiceRequestVersion" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="ChannelId" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="LanguageId" type="xsd:string">
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element
+											name="RequestMessageInfo">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element
+														name="BankId" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="TimeZone" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="EntityId" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="EntityType" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="ArmCorrelationId" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="MessageDateTime" type="xsd:string">
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="Security">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element
+														name="Token">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element
+																	name="PasswordToken">
+																	<xsd:complexType>
+																		<xsd:sequence>
+																			<xsd:element
+																				name="UserId" type="xsd:string">
+																			</xsd:element>
+																			<xsd:element
+																				name="Password" type="xsd:string">
+																			</xsd:element>
+																		</xsd:sequence>
+																	</xsd:complexType>
+																</xsd:element>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+													<xsd:element
+														name="FICertToken" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="RealUserLoginSessionId" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="RealUser" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="RealUserPwd" type="xsd:string">
+													</xsd:element>
+													<xsd:element
+														name="SSOTransferToken" type="xsd:string">
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Body" minOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="XferTrnAddRq">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element
+											name="XferTrnHdr">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element
+														name="TrnType" minOccurs="1">
+														<xsd:simpleType>
+															<xsd:restriction
+																base="xsd:string">
+																<xsd:length
+																	value="1">
+																</xsd:length>
+															</xsd:restriction>
+														</xsd:simpleType>
+													</xsd:element>
+													<xsd:element
+														name="TrnSubType" minOccurs="1">
+														<xsd:simpleType>
+															<xsd:restriction
+																base="xsd:string">
+																<xsd:minLength
+																	value="1">
+																</xsd:minLength>
+																<xsd:maxLength
+																	value="2">
+																</xsd:maxLength>
+															</xsd:restriction>
+														</xsd:simpleType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element
+											name="XferTrnDetail">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element
+														name="PartTrnRec" minOccurs="1" maxOccurs="unbounded">
+														<xsd:complexType>
+															<xsd:sequence>
+																<xsd:element
+																	name="AcctId">
+																	<xsd:complexType>
+																		<xsd:sequence>
+																			<xsd:element
+																				name="AcctId" minOccurs="1">
+																				<xsd:simpleType>
+																					<xsd:restriction
+																						base="xsd:string">
+																						<xsd:length
+																							value="16">
+																						</xsd:length>
+																					</xsd:restriction>
+																				</xsd:simpleType>
+																			</xsd:element>
+																		</xsd:sequence>
+																	</xsd:complexType>
+																</xsd:element>
+																<xsd:element
+																	name="CreditDebitFlg" minOccurs="1">
+																	<xsd:simpleType>
+																		<xsd:restriction
+																			base="xsd:string">
+																			<xsd:length
+																				value="1">
+																			</xsd:length>
+																		</xsd:restriction>
+																	</xsd:simpleType>
+																</xsd:element>
+																<xsd:element
+																	name="TrnAmt">
+																	<xsd:complexType>
+																		<xsd:sequence>
+																			<xsd:element
+																				name="amountValue" type="xsd:double"
+																				minOccurs="1">
+																			</xsd:element>
+																			<xsd:element
+																				name="currencyCode" minOccurs="1">
+																				<xsd:simpleType>
+																					<xsd:restriction
+																						base="xsd:string">
+																						<xsd:minLength
+																							value="1">
+																						</xsd:minLength>
+																						<xsd:maxLength
+																							value="3">
+																						</xsd:maxLength>
+																					</xsd:restriction>
+																				</xsd:simpleType>
+																			</xsd:element>
+																		</xsd:sequence>
+																	</xsd:complexType>
+																</xsd:element>
+																<xsd:element
+																	name="TrnParticulars" minOccurs="1">
+																	<xsd:simpleType>
+																		<xsd:restriction
+																			base="xsd:string">
+																			<xsd:minLength
+																				value="1">
+																			</xsd:minLength>
+																			<xsd:maxLength
+																				value="50">
+																			</xsd:maxLength>
+																		</xsd:restriction>
+																	</xsd:simpleType>
+																</xsd:element>
+																<xsd:element
+																	name="PartTrnRmks" minOccurs="1">
+																	<xsd:simpleType>
+																		<xsd:restriction
+																			base="xsd:string">
+																			<xsd:minLength
+																				value="1">
+																			</xsd:minLength>
+																			<xsd:maxLength
+																				value="30">
+																			</xsd:maxLength>
+																		</xsd:restriction>
+																	</xsd:simpleType>
+																</xsd:element>
+																<xsd:element
+																	name="SerialNum" minOccurs="1">
+																	<xsd:simpleType>
+																		<xsd:restriction
+																			base="xsd:string">
+																			<xsd:minLength
+																				value="1">
+																			</xsd:minLength>
+																			<xsd:maxLength
+																				value="4">
+																			</xsd:maxLength>
+																		</xsd:restriction>
+																	</xsd:simpleType>
+																</xsd:element>
+																<xsd:element
+																	name="ValueDt" minOccurs="1" type="xsd:date">
+																</xsd:element>
+															</xsd:sequence>
+														</xsd:complexType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="XferTrnAdd_CustomData"
+								minOccurs="0">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="TRANRMKS"
+											minOccurs="1">
+											<xsd:simpleType>
+												<xsd:restriction
+													base="xsd:string">
+													<xsd:minLength
+														value="1">
+													</xsd:minLength>
+													<xsd:maxLength
+														value="30">
+													</xsd:maxLength>
+												</xsd:restriction>
+											</xsd:simpleType>
+										</xsd:element>
+										<xsd:element name="ADDPT"
+											maxOccurs="unbounded">
+											<xsd:complexType>
+												<xsd:sequence>
+													<xsd:element
+														name="SERIALNUM" minOccurs="1">
+														<xsd:simpleType>
+															<xsd:restriction
+																base="xsd:string">
+																<xsd:minLength
+																	value="1">
+																</xsd:minLength>
+																<xsd:maxLength
+																	value="4">
+																</xsd:maxLength>
+															</xsd:restriction>
+														</xsd:simpleType>
+													</xsd:element>
+													<xsd:element
+														name="REF_NUM" minOccurs="1">
+														<xsd:simpleType>
+															<xsd:restriction
+																base="xsd:string">
+																<xsd:minLength
+																	value="1">
+																</xsd:minLength>
+																<xsd:maxLength
+																	value="20">
+																</xsd:maxLength>
+															</xsd:restriction>
+														</xsd:simpleType>
+													</xsd:element>
+													<xsd:element
+														name="TRANPARTICULARS2" minOccurs="1">
+														<xsd:simpleType>
+															<xsd:restriction
+																base="xsd:string">
+																<xsd:minLength
+																	value="1">
+																</xsd:minLength>
+																<xsd:maxLength
+																	value="50">
+																</xsd:maxLength>
+															</xsd:restriction>
+														</xsd:simpleType>
+													</xsd:element>
+												</xsd:sequence>
+												<xsd:attribute
+													name="isMultiRec" type="xsd:string" use="optional">
+												</xsd:attribute>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+							<xsd:element name="UserName"
+								type="xsd:string">
+							</xsd:element>
+							<xsd:element name="MessageInfo"
+								type="xsd:string" minOccurs="0">
+							</xsd:element>
+							<xsd:element name="XferTrnAddResponse" minOccurs="0">
+                                <xsd:complexType>
+                                	<xsd:sequence>
+                                		<xsd:element
+                                			name="XferTrnAddRs">
+                                			<xsd:complexType>
+                                				<xsd:sequence>
+                                					<xsd:element
+                                						name="TrnIdentifier">
+                                						<xsd:complexType>
+                                							<xsd:sequence>
+                                								<xsd:element
+                                									name="TrnDt"
+                                									type="xsd:string">
+                                								</xsd:element>
+                                								<xsd:element
+                                									name="TrnId"
+                                									type="xsd:string">
+                                								</xsd:element>
+                                							</xsd:sequence>
+                                						</xsd:complexType>
+                                					</xsd:element>
+                                				</xsd:sequence>
+                                			</xsd:complexType>
+                                		</xsd:element>
+                                		<xsd:element name="XferTrnAdd_CustomData"
+                                			type="xsd:string">
+                                		</xsd:element>
+                                	</xsd:sequence>
+                                </xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+
+</xsd:schema>

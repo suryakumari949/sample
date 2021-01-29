@@ -1,0 +1,41 @@
+BROKER SCHEMA com.esb.kbl
+
+
+CREATE COMPUTE MODULE TransactionAPIFlow_RequestStore
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET Environment.AuditRecord.NodeName  			= BrokerName;
+		SET Environment.AuditRecord.IntegrationServer  	= ExecutionGroupLabel;
+		SET Environment.AuditRecord.FlowName  			= MessageFlowLabel;
+		SET Environment.AuditRecord.ApplicationName  	= ApplicationLabel;
+		SET Environment.AuditRecord.Request 			= InputRoot.XMLNSC;
+		
+	
+		DECLARE fins NAMESPACE 'http://www.finacle.com/fixml';
+		DECLARE schemaLocation NAMESPACE 'http://www.finacle.com/fixml XferTrnAdd.xsd';
+		DECLARE xsi NAMESPACE 'www.w3.org/2001/XMLSchema-instance';
+		
+		SET OutputRoot.XMLNSC.fins:FIXML.(XMLNSC.NamespaceDecl)xmlns = fins;
+		SET OutputRoot.XMLNSC.fins:FIXML.(XMLNSC.NamespaceDecl)xsi:schemaLocation = schemaLocation;
+		SET OutputRoot.XMLNSC.fins:FIXML.(XMLNSC.NamespaceDecl)xmlns:xsi = xsi;
+		
+		
+		SET Environment.UserName = InputRoot.XMLNSC.fins:FIXML.fins:Body.fins:UserName;
+
+	    IF (Environment.UserName = 'Asba') OR (Environment.UserName = 'Fms') OR (Environment.UserName = 'Naftmw') THEN   
+	    	   	
+      	 SET OutputRoot.XMLNSC.fins:FIXML.fins:Header = InputRoot.XMLNSC.fins:FIXML.fins:Header;      	 
+      	 SET OutputRoot.XMLNSC.fins:FIXML.fins:Body	  = InputRoot.XMLNSC.fins:FIXML.fins:Body;
+      	 SET OutputLocalEnvironment.Destination.HTTPS.RequestURL = 'https://f10dev.ktkbank.com:20000/FISERVLET/fihttp';      
+      	 PROPAGATE TO TERMINAL 'out';
+      	 
+        ELSE      	
+       	 SET OutputRoot.XMLNSC.fins:FIXML.fins:Body.fins:MessageInfo 	= 'The Requested'||' '||Environment.UserName||' '||'userName is not found';       	
+      	 PROPAGATE TO TERMINAL 'out1';
+    	END IF;	
+		
+		RETURN FALSE;
+	END;
+
+END MODULE;
